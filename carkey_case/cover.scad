@@ -10,7 +10,7 @@ key:
 * 0.2 thick
 */
 
-use <roundedcube.scad>;
+use <../_common/roundedcube.scad>;
 $fs = 0.15;
 
 // WALL thickness
