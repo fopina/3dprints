@@ -1,26 +1,23 @@
-L = 77;
+// bottom length - more than 90 recommended but currently limited by a small print bed
+L = 90;
 L2 = L/2;
-W = 40;
-H = 50;
+// width
+W = 30;
+// height
+H = 90;
 
-Points = [
-  [ 0,  0,  0], // 0
-  [ L,  0,  0], // 1
-  [ 0,  W,  0], // 2
-  [ L,  W,  0], // 3
-  [L2,  0,  H], // 4
-  [L2,  W,  H], // 5
-];
+// hole space to fit the server (~44 for Dell R620 - 1U)
+S = 45;
+// bottom height (removed "ear" otherwise it needs to be > 26 >> more printing time)
+BH = 15;
 
-Faces = [
-  [0,1,4],  // triangle1
-  [2,3,5],  // triangle2
-  [0,1,3,2],  // bottom
-  [0,2,5,4],  // right
-  [1,3,5,4],  // back
-];
-
-
-polyhedron(Points, Faces);
-
-// FAIL: cannot use difference, rendering breaks... #FIXME
+difference() {
+    linear_extrude(W)
+        polygon([
+            [ 0, 0],
+            [ L, 0],
+            [L2, H],
+        ]);
+    translate([(L-S)/2, BH, -50])
+        cube([S, 100, 100]);
+}
