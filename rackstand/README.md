@@ -6,7 +6,6 @@ Measurements were all taken from the server (not specs) but everything is easily
 
 *Note*:
 * I'd like to have a wider support but my print bed is small (12cm diameter/circular). If anyone uses this and increases it, let me know how it goes
-* `stand2` is the real
 
 ![final](3d.jpg)
 ![use](final.jpg)
