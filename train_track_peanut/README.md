@@ -4,5 +4,6 @@ A connection piece for [playtive train sets](https://www.lidl.be/p/fr-BE/playtiv
 
 Easily lost, easily replaced.
 
-![final](3d.jpg)
-![use](final.jpg)
+![final](3d.png)
+![use](shot1.png)
+![use](shot2.png)
