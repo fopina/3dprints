@@ -1,11 +1,12 @@
-total_size = [ 50, 30, 25 ];
+// based on https://github.com/grapeot/alexa-esp32-cam/blob/master/Case.scad
+
+total_size = [ 50, 30, 18 ];
 wall_depth = [ 2, 2, 2 ];
-screen_hole_size = [24, 36, 10];
 slider_gap_depth = 1;
 epsilon = 0.01;
 margin = 0.8;
 
-module case(with_antenna_hole=false) {
+module case(camera_hole=true) {
     $fn=100;
 
     // cube body
@@ -28,15 +29,15 @@ module case(with_antenna_hole=false) {
         translate([-total_size[0] / 2, 0, -5])
          cube([10, 13, 7], center=true);
         // remove the hole for the camera
-        translate([10, 0, (total_size[2] + wall_depth[2]) / 2]) 
-        // cylinder(r=8/2, h=10, center=true);
-         cube([8.5, 8.5, 10], center=true);
+        if (camera_hole)
+          translate([10, 0, (total_size[2] + wall_depth[2]) / 2]) 
+            cube([8.5, 8.5, 10], center=true);
+        else
+          // if no camera hole, remove a small bit to pass only the cable (externally placed camera)
+          translate([10, 0, (total_size[2] + wall_depth[2]) / 2]) 
+            cube([3, 17, 10], center=true);
 
-        if (with_antenna_hole) {
-            translate([total_size[0]/2, total_size[1]/2-5, 0])
-            rotate([0, 90, 0])
-            cylinder(r=6.5/2, h=10, center=true);
-        }
+
     }
 }
 
@@ -46,5 +47,5 @@ module slider() {
     cube([ total_size[0] + wall_depth[0] - margin - 10, total_size[1] + 2 * slider_gap_depth - margin, slider_gap_depth - 0.2 ]);
 }
 
-case();
-slider();
+case(false);
+//slider();
