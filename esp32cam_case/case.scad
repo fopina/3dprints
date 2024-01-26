@@ -1,12 +1,12 @@
 // based on https://github.com/grapeot/alexa-esp32-cam/blob/master/Case.scad
 
-total_size = [ 50, 30, 18 ];
+total_size = [ 50, 29, 13 ];
 wall_depth = [ 2, 2, 2 ];
 slider_gap_depth = 1;
 epsilon = 0.01;
 margin = 0.8;
 
-module case(camera_hole=true) {
+module case(camera_hole=true, usb_hole=true) {
     $fn=100;
 
     // cube body
@@ -26,8 +26,9 @@ module case(camera_hole=true) {
         translate([ total_size[0] / 2 + wall_depth[0] / 2 + epsilon / 2, 0, -total_size[2] / 2 - wall_depth[2] / 2 - epsilon ])
         cube([ wall_depth[0] + 2 * epsilon, total_size[1] + epsilon, wall_depth[2] * 2 + 3 * epsilon], center=true);
         // remove the hole for the micro USB
-        translate([-total_size[0] / 2, 0, -5])
-         cube([10, 13, 7], center=true);
+        if (usb_hole)
+          translate([-total_size[0] / 2, 0, -5])
+           cube([10, 13, 7], center=true);
         // remove the hole for the camera
         if (camera_hole)
           translate([10, 0, (total_size[2] + wall_depth[2]) / 2]) 
@@ -47,5 +48,5 @@ module slider() {
     cube([ total_size[0] + wall_depth[0] - margin - 10, total_size[1] + 2 * slider_gap_depth - margin, slider_gap_depth - 0.2 ]);
 }
 
-case(false);
+case(false, false);
 //slider();
