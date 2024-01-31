@@ -44,9 +44,11 @@ module case(camera_hole=true, usb_hole=true) {
 
 module slider() {
     // slider
-    translate([ -40, 50, 0 ])
-    cube([ total_size[0] + wall_depth[0] - margin - 10, total_size[1] + 2 * slider_gap_depth - margin, slider_gap_depth - 0.2 ]);
+    union() {
+        cube([ total_size[0] + wall_depth[0] - margin - 10, total_size[1] + 2 * slider_gap_depth - margin, slider_gap_depth - 0.2 ], center=true);
+        translate([0,0, 1.2]) cube([3, 10, 3], center=true);
+    }
 }
 
-case(false, false);
-//slider();
+//case(false, false);
+translate([ -5, 0, 13 ]) slider();
