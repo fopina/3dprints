@@ -58,4 +58,4 @@ module slider() {
 }
 
 #case(false, false);
-translate([ margin, 0, total_size[2] + slider_slide_up ]) !slider();
+translate([ margin, 0, total_size[2] + slider_slide_up ]) slider();
