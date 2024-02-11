@@ -1,8 +1,9 @@
 // based on https://github.com/grapeot/alexa-esp32-cam/blob/master/Case.scad
 
-total_size = [ 50, 29, 13 ];
+total_size = [ 43, 29, 13 ];
 wall_depth = [ 2, 2, 2 ];
 slider_gap_depth = 1;
+slider_slide_up = 1.5;
 epsilon = 0.01;
 margin = 0.8;
 
@@ -17,13 +18,13 @@ module case(camera_hole=true, usb_hole=true) {
         // center hole
         cube(total_size, center=true);
         // slider gap
-        translate([ wall_depth[0] / 2 + epsilon / 2, 0, -total_size[2] / 2 + wall_depth[2] / 2 + epsilon / 2 ])
+        translate([ wall_depth[0] / 2 + epsilon / 2, 0, -total_size[2] / 2 + wall_depth[2] / 2 + epsilon / 2 - slider_slide_up])
         cube([ total_size[0] + wall_depth[0] + epsilon, total_size[1] + 2 * slider_gap_depth + epsilon, slider_gap_depth ], center=true);
         // remove the bottom 
         translate([ 0, 0, -total_size[2] / 2 - wall_depth[2] / 2 - epsilon ])
         cube([ total_size[0], total_size[1], wall_depth[2] + 3 * epsilon], center=true);
         // remove the edge which might cause the bridging issue
-        translate([ total_size[0] / 2 + wall_depth[0] / 2 + epsilon / 2, 0, -total_size[2] / 2 - wall_depth[2] / 2 - epsilon ])
+        translate([ total_size[0] / 2 + wall_depth[0] / 2 + epsilon / 2, 0, -total_size[2] / 2 - wall_depth[2] / 2 - epsilon - slider_slide_up ])
         cube([ wall_depth[0] + 2 * epsilon, total_size[1] + epsilon, wall_depth[2] * 2 + 3 * epsilon], center=true);
         // remove the hole for the micro USB
         if (usb_hole)
@@ -35,7 +36,7 @@ module case(camera_hole=true, usb_hole=true) {
             cube([8.5, 8.5, 10], center=true);
         else
           // if no camera hole, remove a small bit to pass only the cable (externally placed camera)
-          translate([10, 0, (total_size[2] + wall_depth[2]) / 2]) 
+          translate([-6, 0, (total_size[2] + wall_depth[2]) / 2]) 
             cube([3, 17, 10], center=true);
 
 
@@ -50,5 +51,5 @@ module slider() {
     }
 }
 
-//case(false, false);
-translate([ -5, 0, 13 ]) slider();
+#case(false, false);
+translate([ -5, 0, total_size[2] + slider_slide_up ]) slider();
