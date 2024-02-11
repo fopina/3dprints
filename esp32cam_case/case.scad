@@ -46,10 +46,16 @@ module case(camera_hole=true, usb_hole=true) {
 module slider() {
     // slider
     union() {
-        cube([ total_size[0] + wall_depth[0] - margin - 10, total_size[1] + 2 * slider_gap_depth - margin, slider_gap_depth - 0.2 ], center=true);
+        c1 = total_size[0] + wall_depth[0] - margin;
+        c2 = total_size[1] + 2 * slider_gap_depth - margin;
+        difference() {
+            cube([ c1, c2, slider_gap_depth - 0.2 ], center=true);
+            translate([-(c1 - 10) / 2 - margin, (c2 - 6) / 2 + margin,-1])
+                cube([10, 6, 10], center=true);
+        }
         translate([0,0, 1.2]) cube([3, 10, 3], center=true);
     }
 }
 
 #case(false, false);
-translate([ -5, 0, total_size[2] + slider_slide_up ]) slider();
+translate([ margin, 0, total_size[2] + slider_slide_up ]) !slider();
